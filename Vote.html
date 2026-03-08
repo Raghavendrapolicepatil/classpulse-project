@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Class Vote</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.vote-box{
+margin-top:20px;
+}
+
+.vote-btn{
+padding:16px 24px;
+margin:10px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#111;
+color:white;
+cursor:pointer;
+}
+
+.vote-btn:active{
+transform:scale(0.96);
+}
+
+.vote-count{
+margin-top:20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="javascript:history.back()" style="position:absolute; left:15px; color:white; text-decoration:none;">←</a>
+
+<h1>ClassPulse</h1>
+
+</header>
+
+<h2 id="subjectTitle">Class Vote</h2>
+
+<div class="vote-box">
+
+<button class="vote-btn" onclick="voteYes()">👍 Yes</button>
+
+<button class="vote-btn" onclick="voteNo()">👎 No</button>
+
+<div class="vote-count">
+
+<p>Yes: <span id="yesCount">0</span></p>
+
+<p>No: <span id="noCount">0</span></p>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

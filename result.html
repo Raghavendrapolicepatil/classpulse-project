@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Current Class</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.result-box{
+margin-top:30px;
+padding:20px;
+background:white;
+border-radius:12px;
+max-width:360px;
+margin-left:auto;
+margin-right:auto;
+box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+.result-subject{
+font-size:22px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.vote-count{
+margin-top:8px;
+font-size:16px;
+opacity:0.7;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" style="position:absolute; left:15px; color:white;">←</a>
+
+<h1>ClassPulse</h1>
+
+</header>
+
+<h2 id="title"></h2>
+
+<div class="result-box">
+
+<p id="resultText">Checking votes...</p>
+
+<div class="result-subject" id="subjectName"></div>
+
+<div class="vote-count" id="voteCount"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const sem = params.get("sem");
+
+document.getElementById("title").innerText =
+"Current Class - Sem " + sem;
+
+
+/* Subject readable names */
+
+const subjectNames = {
+
+ProblemSolvingC:"Problem Solving Techniques",
+CProgrammingLab:"C Programming Lab",
+Algorithms:"Introduction to Algorithms",
+AlgorithmsLab:"Algorithms Lab",
+DiscreteMath:"Discrete Mathematics",
+DataStructuresC:"Data Structures using C",
+DataStructuresLab:"Data Structures Lab",
+PythonProgramming:"Python Programming",
+PythonLab:"Python Lab",
+ProbabilityStats:"Probability & Statistics",
+JavaOOP:"OOP using Java",
+JavaLab:"Java Lab",
+WebTechnologies:"Web Technologies",
+WebTechLab:"Web Tech Lab",
+Accounting:"Principle of Accounting",
+ComputerGraphics:"Computer Graphics",
+ComputerGraphicsLab:"Computer Graphics Lab",
+DBMS:"Database Management System",
+DBMSLab:"DBMS Lab",
+DataCommunication:"Data Communication",
+JavaScriptLab:"JavaScript Lab",
+English:"English",
+Hindi:"Hindi",
+Kannada:"Kannada"
+
+};
+
+
+/* Semester subjects */
+
+let subjects=[];
+
+if(sem=="1"){
+subjects=[
+"ProblemSolvingC",
+"CProgrammingLab",
+"Algorithms",
+"AlgorithmsLab",
+"DiscreteMath",
+"English",
+"Hindi",
+"Kannada"
+];
+}
+
+if(sem=="2"){
+subjects=[
+"DataStructuresC",
+"DataStructuresLab",
+"PythonProgramming",
+"PythonLab",
+"ProbabilityStats",
+"English",
+"Hindi",
+"Kannada"
+];
+}
+
+if(sem=="3"){
+subjects=[
+"JavaOOP",
+"JavaLab",
+"WebTechnologies",
+"WebTechLab",
+"Accounting",
+"English",
+"Hindi",
+"Kannada"
+];
+}
+
+if(sem=="4"){
+subjects=[
+"ComputerGraphics",
+"ComputerGraphicsLab",
+"DBMS",
+"DBMSLab",
+"DataCommunication",
+"JavaScriptLab",
+"English",
+"Hindi",
+"Kannada"
+];
+}
+
+
+/* Find most voted subject */
+
+let maxVotes=0;
+let currentClass=null;
+
+subjects.forEach(function(sub){
+
+let yesVotes=parseInt(localStorage.getItem(sub+"_yes")) || 0;
+
+if(yesVotes>maxVotes){
+maxVotes=yesVotes;
+currentClass=sub;
+}
+
+});
+
+
+/* Display */
+
+if(currentClass){
+
+document.getElementById("subjectName").innerText=
+subjectNames[currentClass];
+
+document.getElementById("voteCount").innerText=
+maxVotes+" votes";
+
+document.getElementById("resultText").innerText=
+"Current class running";
+
+}else{
+
+document.getElementById("resultText").innerText=
+"No votes yet";
+
+}
+
+</script>
+
+</body>
+
+</html>
