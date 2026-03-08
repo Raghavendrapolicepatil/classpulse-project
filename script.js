@@ -29,7 +29,7 @@ return R*c;
 
 let distance = getDistance(lat,lon,collegeLat,collegeLon);
 
-if(distance <= 0.1){
+if(distance <= 0.5){
 
 allowVote = true;
 
