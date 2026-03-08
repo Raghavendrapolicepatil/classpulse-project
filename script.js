@@ -1,4 +1,11 @@
 
+/* Allow vote variable */
+
+let allowVote = false;
+
+
+/* GPS check */
+
 navigator.geolocation.getCurrentPosition(function(pos){
 
 let lat = pos.coords.latitude;
@@ -13,7 +20,7 @@ let collegeLon = 75.166786;
 
 function getDistance(lat1, lon1, lat2, lon2){
 
-const R = 6371; // km
+const R = 6371;
 
 let dLat = (lat2-lat1) * Math.PI/180;
 let dLon = (lon2-lon1) * Math.PI/180;
@@ -34,18 +41,21 @@ let distance = getDistance(lat,lon,collegeLat,collegeLon);
 
 /* 0.1 km = 100 meters */
 
-if(distance > 0.1){
+if(distance <= 0.1){
 
-alert("Voting allowed only inside campus");
+allowVote = true;
+
+}else{
 
 document.body.innerHTML =
-"<h2 style='text-align:center'>You are outside campus</h2>";
+"<h2 style='text-align:center;margin-top:50px'>Voting allowed only inside campus</h2>";
 
 }
 
 });
 
-/* Auto reset after 1 hour */
+
+/* Auto reset votes every 1 hour */
 
 let resetTime = localStorage.getItem("resetTime");
 let now = Date.now();
@@ -55,8 +65,11 @@ localStorage.setItem("resetTime", now);
 }
 
 if(now - resetTime > 3600000){
+
 localStorage.clear();
+
 localStorage.setItem("resetTime", now);
+
 }
 
 
@@ -81,9 +94,14 @@ document.getElementById("yesCount").innerText = yesVotes;
 document.getElementById("noCount").innerText = noVotes;
 
 
-/* Voting */
+/* Vote Yes */
 
 function voteYes(){
+
+if(!allowVote){
+alert("You must be inside campus to vote");
+return;
+}
 
 if(localStorage.getItem(subject+"_voted")){
 alert("You already voted");
@@ -99,7 +117,15 @@ document.getElementById("yesCount").innerText = yesVotes;
 
 }
 
+
+/* Vote No */
+
 function voteNo(){
+
+if(!allowVote){
+alert("You must be inside campus to vote");
+return;
+}
 
 if(localStorage.getItem(subject+"_voted")){
 alert("You already voted");
