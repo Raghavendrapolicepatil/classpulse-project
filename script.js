@@ -1,22 +1,12 @@
-
-/* Allow vote variable */
-
 let allowVote = false;
-
-
-/* GPS check */
 
 navigator.geolocation.getCurrentPosition(function(pos){
 
 let lat = pos.coords.latitude;
 let lon = pos.coords.longitude;
 
-/* College location */
-
 let collegeLat = 15.36755;
 let collegeLon = 75.166786;
-
-/* Distance calculation */
 
 function getDistance(lat1, lon1, lat2, lon2){
 
@@ -39,16 +29,19 @@ return R*c;
 
 let distance = getDistance(lat,lon,collegeLat,collegeLon);
 
-/* 0.1 km = 100 meters */
-
 if(distance <= 0.1){
 
 allowVote = true;
 
+/* enable buttons */
+
+document.getElementById("yesBtn").disabled = false;
+document.getElementById("noBtn").disabled = false;
+
 }else{
 
 document.body.innerHTML =
-"<h2 style='text-align:center;margin-top:50px'>Voting allowed only inside campus</h2>";
+"<h2 style='text-align:center'>Voting allowed only inside campus</h2>";
 
 }
 
